@@ -1,4 +1,6 @@
 // server.js
+require('dotenv').config();
+// server.js
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -9,11 +11,15 @@ const app = express();
 const PORT = 3000;
 
 // --- Middleware ---
-app.use(cors()); 
+const corsOptions = {
+    origin: 'https://eliteinfluence.netlify.app/',
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json()); 
 
 // --- MongoDB Connection ---
-const dbURL = 'mongodb+srv://sujeetk382016:DEt464NUpHxnSIiv@cluster0.lrflccz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const dbURL = process.env.DB_URL;
 
 mongoose.connect(dbURL)
   .then(() => console.log('Connected to MongoDB Atlas'))

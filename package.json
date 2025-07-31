@@ -3,20 +3,31 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Elite Influence was founded with a simple mission: to bridge the gap between innovative brands and creative Instagram influencers.",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mongodb": "^6.18.0",
     "mongoose": "^8.16.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sujeetkumar22/elite-influence.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sujeetkumar22/elite-influence/issues"
+  },
+  "homepage": "https://github.com/sujeetkumar22/elite-influence#readme"
 }
