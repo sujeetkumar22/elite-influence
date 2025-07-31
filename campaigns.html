@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Influence - Campaigns</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Elite Influence</a>
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="campaigns.html">Campaigns</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="campaign-header">
+            <h1 class="page-title">Available Campaigns</h1>
+            <button id="open-modal-btn" class="cta-button">Post a Campaign</button>
+        </div>
+        <div id="campaign-list" class="campaign-list">
+            </div>
+    </main>
+
+    <div id="campaign-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Post a New Campaign</h2>
+            <form id="campaign-form">
+                <label for="title">Campaign Title</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="brand">Brand Name</label>
+                <input type="text" id="brand" name="brand" required>
+                
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+                
+                <button type="submit" class="apply-button">Submit Campaign</button>
+            </form>
+            
+            <div id="details-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-details-btn">&times;</span>
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-brand" class="brand"></p>
+                    <p id="modal-description"></p>
+                    <button class="apply-button">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Elite Influence. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
