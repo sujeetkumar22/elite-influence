@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBrand = document.getElementById('modal-brand');
         const modalDescription = document.getElementById('modal-description');
         
-        const API_URL = 'http://localhost:3000/api/campaigns';
+        const API_URL = 'https://elite-influence.onrender.com/api/campaigns'; // Update with your actual API URL
 
         // --- Function to Fetch and Display Campaigns ---
         const fetchAndDisplayCampaigns = async () => {

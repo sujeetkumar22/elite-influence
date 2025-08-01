@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const body = isLoginMode ? { email, password } : { email, password, role };
 
         try {
-            const response = await fetch(`http://localhost:3000${endpoint}`, {
+            const response = await fetch(`https://elite-influence.onrender.com${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
