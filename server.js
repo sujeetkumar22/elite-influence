@@ -12,7 +12,7 @@ const PORT = 3000;
 
 // --- Middleware ---
 const corsOptions = {
-    origin: 'https://eliteinfluence.netlify.app/',
+    origin: 'https://eliteinfluence.netlify.app',
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
