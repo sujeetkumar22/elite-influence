@@ -1,7 +1,10 @@
-# .gitignore file
+# Node.js
+node_modules/
+npm-debug.log
 
-# Ignore the node_modules directory
-node_modules
-
-# Ignore the environment file
+# Secrets (if you create a .env file later)
 .env
+
+# OS files
+.DS_Store
+Thumbs.db

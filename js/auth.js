@@ -1,84 +1,75 @@
 // js/auth.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('auth-form');
-    const formTitle = document.getElementById('form-title');
-    const submitButton = document.getElementById('submit-button');
-    const toggleLink = document.getElementById('toggle-link');
-    const toggleLinkContainer = document.getElementById('toggle-link-container');
-    const roleSelection = document.getElementById('role-selection');
-    const messageArea = document.getElementById('message-area');
-    
-    let isLoginMode = true;
+    const registerForm = document.getElementById('register-form');
+    const loginForm = document.getElementById('login-form');
 
-    // Function to switch between Login and Register modes
-    const toggleMode = () => {
-        isLoginMode = !isLoginMode;
-        formTitle.textContent = isLoginMode ? 'Login' : 'Sign Up';
-        submitButton.textContent = isLoginMode ? 'Login' : 'Create Account';
-        roleSelection.classList.toggle('hidden', isLoginMode);
-        
-        if (isLoginMode) {
-            toggleLinkContainer.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-link">Sign Up</a>';
-        } else {
-            toggleLinkContainer.innerHTML = 'Already have an account? <a href="#" id="toggle-link">Login</a>';
-        }
-        
-        document.getElementById('toggle-link').addEventListener('click', (e) => {
+    // --- Handle Registration ---
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            toggleMode();
-        });
-        messageArea.textContent = '';
-    };
+            const email = registerForm.email.value;
+            const password = registerForm.password.value;
+            const role = registerForm.role.value;
 
-    toggleLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggleMode();
-    });
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role })
+                });
 
-    // Handle form submission
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = form.email.value;
-        const password = form.password.value;
-        const role = form.role.value;
-        
-        const endpoint = isLoginMode ? '/api/auth/login' : '/api/auth/register';
-        const body = isLoginMode ? { email, password } : { email, password, role };
-
-        try {
-            const response = await fetch(`https://elite-influence.onrender.com${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body),
-            });
-
-            const data = await response.json();
-
-            // Find this 'if' block
-            if (response.ok) {
-                messageArea.style.color = 'green';
-                messageArea.textContent = data.message;
-
-                // Find this nested 'if' block for login mode
-                if(isLoginMode) {
-                    // ▼▼▼ THIS IS THE LINE TO ADD ▼▼▼
-                    localStorage.setItem('eliteUser', JSON.stringify(data.user));
-
-                    // On successful login, redirect to the campaigns page after a short delay
-                    setTimeout(() => {
-                        window.location.href = 'campaigns.html';
-                    }, 1500);
+                if (res.ok) {
+                    alert('Registration successful! Please login.');
+                    window.location.href = 'login.html'; // Redirect to login
+                } else {
+                    const data = await res.json();
+                    alert(`Registration failed: ${data.message}`);
                 }
-            } else {
-                messageArea.style.color = 'red';
-                messageArea.textContent = data.message;
+            } catch (err) {
+                console.error('Registration error:', err);
+                alert('An error occurred during registration.');
             }
-        } catch (error) {
-            messageArea.style.color = 'red';
-            messageArea.textContent = 'An error occurred. Please try again.';
-            console.error('Auth error:', error);
-        }
-    });
+        });
+    }
+
+    // --- Handle Login ---
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginForm.email.value;
+            const password = loginForm.password.value;
+
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!res.ok) {
+                    const data = await res.json();
+                    throw new Error(data.message || 'Login failed');
+                }
+
+                const { token, role } = await res.json();
+                
+                // Store the token in the browser's local storage
+                localStorage.setItem('token', token);
+
+                alert('Login successful!');
+                
+                // Redirect based on role
+                if (role === 'company') {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.href = 'campaigns.html';
+                }
+
+            } catch (err) {
+                console.error('Login error:', err);
+                alert(`Login failed: ${err.message}`);
+            }
+        });
+    }
 });
