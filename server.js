@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,11 +14,11 @@ app.use(cors());
 app.use(express.json()); 
 
 // --- Configuration ---
-// IMPORTANT: Replace this with a long, random string in production!
-const JWT_SECRET = 'your_super_secret_key_that_is_very_long';
+// Load secrets from .env file
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // --- MongoDB Connection ---
-const dbURI = 'mongodb+srv://sujeetk382016:teejus321@cluster0.lrflccz.mongodb.net/?appName=Cluster0';
+const dbURI = process.env.MONGO_URI;
 
 mongoose.connect(dbURI)
   .then(() => console.log('Connected to MongoDB Atlas'))
