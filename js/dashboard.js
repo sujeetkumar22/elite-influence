@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const campaignForm = document.getElementById('campaign-form');
     const logoutButton = document.getElementById('logout-button');
-    const API_URL = 'http://localhost:3000/api/campaigns';
+    const API_URL = 'https://elite-influence.onrender.com/api/campaigns';
     
     // Get the token from local storage
     const token = localStorage.getItem('token');
